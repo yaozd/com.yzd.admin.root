@@ -1,0 +1,1 @@
+insert into shortcuts (NAME ,color,filePath)values('软件名称',1,'G:\1\Rolan\Rolan.exe');
