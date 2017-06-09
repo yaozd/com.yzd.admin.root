@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration>
+
+    <springProfile name="dev">
+        <!--scope="context"会将变量赋加日志中-->
+        <!--<springProperty scope="context" name="filePath" defaultValue="target/log" source="log.filePath.value"/>-->
+        <!--<springProperty scope="local" name="filePath" defaultValue="target/log" source="log.filePath.value"/>-->
+        <!--base.xml包含一个控制台的输出-->
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+        <property name="filePath" value="target/log" />
+    </springProfile>
+    <springProfile name="!dev">
+        <!--scope="context"会将变量赋加日志中-->
+        <!--<springProperty scope="context" name="filePath" defaultValue="log" source="log.filePath.value"/>-->
+        <!--<springProperty scope="local" name="filePath" defaultValue="log" source="log.filePath.value"/>-->
+        <property name="filePath" value="log" />
+    </springProfile>
+    <property name="fileName" value="logstash" />
+    <appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filePath}/${fileName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${filePath}/${fileName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>　　　　
+        <encoder>　　　　　　　　　　　　　　
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%-4relative %logger{35} - %msg%n</pattern>
+            <charset>utf8</charset>　　　　　　　　　　　　
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="LOG_FILE"/>
+    </root>
+    <!--定向配置-->
+    <logger name="springboot.elk.logback.web" level="DEBUG"/>
+</configuration>
