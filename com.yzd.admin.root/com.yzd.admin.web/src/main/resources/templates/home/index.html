@@ -26,6 +26,17 @@
     </div>
 </header>
 <div class="content">
+    #foreach($shortcutMapFormEle in $shortcutMapFormList)
+    <div class="col-desktop">
+        #foreach($item in $shortcutMapFormEle.shortcutFormList)
+        <div class="app-icon $item.color">
+            <a href="javascript:void(0)" onclick="openExe($item.id)">
+                <i class="fa fa-cogs"></i>$item.name
+            </a>
+        </div>
+        #end
+    </div>
+    #end
     <div class="col-desktop">
         <div class="app-icon blue">
             <a href="#">
@@ -105,5 +116,10 @@
 <script src="/content/assets/js/jquery.fullscreen.js"></script>
 <script src="/content/assets/js/clock.js"></script>
 <script src="/content/assets/js/desktop.js"></script>
+<script>
+    function openExe(id){
+        $.get("/openExe/"+id);
+    }
+</script>
 </body>
 </html>

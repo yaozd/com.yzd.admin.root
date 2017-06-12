@@ -14,13 +14,11 @@ public class ShortcutForm {
     private Integer id;
     private String name;
     private String filePath;
-    private Integer colorId;
     private String color;
     public static ShortcutForm toForm(Shortcut entity){
         ShortcutForm form=new ShortcutForm();
         form.setId(entity.getId());
         form.setName(entity.getName());
-        form.setColorId(entity.getColor());
         form.setColor(ColorEnum.getName(entity.getColor()));
         return form;
     }

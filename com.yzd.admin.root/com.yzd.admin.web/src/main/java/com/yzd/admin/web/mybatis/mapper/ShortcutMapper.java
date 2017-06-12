@@ -11,4 +11,7 @@ import java.util.List;
 public interface ShortcutMapper {
     @Select("select * from shortcuts")
     public List<Shortcut> queryShortcutList();
+
+    @Select("select * from shortcuts where id=#{0}")
+    public Shortcut getById(Integer id);
 }
